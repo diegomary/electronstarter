@@ -2,12 +2,12 @@ import React ,{useEffect,useState }from 'react';
 import logo from './logo.svg';
 import './App.css';
 const electron = window.require('electron');
-//const fs = electron.remote.require('fs');
+const fs = electron.remote.require('fs');
 const { remote } = window.require('electron')
 const { BrowserWindow,Menu,dialog } = remote;
 const ipcRenderer  = electron.ipcRenderer;
 //const fs = window.require('fs');
-//const util =window.require('util');
+const util =window.require('util');
 
 const App: React.FC = () => {
 
@@ -17,24 +17,24 @@ const App: React.FC = () => {
   const  notify = (event:any, notification:any) => {console.log(notification);}; 
   
   
-  // const readFilePromise = (...args:any) => {
-  //     return new Promise ((resolve, reject) => {
-  //       fs.readFile(...args, (err:any, data:any) => {
-  //         if (err) return reject(err)
-  //         resolve(data)
-  //         }); 
-  //     })
-  // }
+  const readFilePromise = (...args:any) => {
+      return new Promise ((resolve, reject) => {
+        fs.readFile(...args, (err:any, data:any) => {
+          if (err) return reject(err)
+          resolve(data)
+          }); 
+      })
+  }
 
-    // readFilePromise('./data.json', {})
-    // .then(data => {  console.log(JSON.parse(data as string ),"without promisify");   })
-    // .catch(err => { console.log(err) })
+    readFilePromise('./data.json', {})
+    .then(data => {  console.log(JSON.parse(data as string ),"without promisify");   })
+    .catch(err => { console.log(err) })
 
 
-    // const readFilePromise1 = util.promisify(fs.readFile)
-    // readFilePromise1('./data.json', {})
-    // .then((data: string) => {  console.log(JSON.parse(data as string),"with promisify");   })
-    // .catch((err: any) => { console.log(err) })
+    const readFilePromise1 = util.promisify(fs.readFile)
+    readFilePromise1('./data.json', {})
+    .then((data: string) => {  console.log(JSON.parse(data as string),"with promisify");   })
+    .catch((err: any) => { console.log(err) })
 
 
   useEffect(() => {

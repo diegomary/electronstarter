@@ -1,4 +1,4 @@
-const  { app,ipcMain } = require('electron');
+const  { app,ipcMain,globalShortcut} = require('electron');
 
 
 const createMainWindow = require('./windows/appwindows');
@@ -8,6 +8,13 @@ console.log(JSON.stringify(process.versions));
 app.on('ready', createMainWindow);
 app.on('window-all-closed',  () =>{ if (process.platform !== 'darwin') app.quit();});
 app.on('activate',  () =>{ if (mainWindow === null) createMainWindow();});
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll();
+  console.log("Shortcut unregistered");
+});
+
+
+
 
 ipcMain.on("acquire_color", (event, color) => {
   console.log(color);  

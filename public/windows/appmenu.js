@@ -1,4 +1,4 @@
-const  { Menu } = require('electron');
+const  { Menu , app} = require('electron');
 const fs = require('fs');
 const shell = require('electron').shell;
 const MenuMethods = require('./appmenumethods')
