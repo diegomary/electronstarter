@@ -1,13 +1,13 @@
 const  { Menu , app} = require('electron');
 const fs = require('fs');
 const shell = require('electron').shell;
-const MenuMethods = require('./appmenumethods')
+const MenuMethods = require('./appmenumethods');
 
 const setwindowMenu = (electronWindow) => {
-Menu.setApplicationMenu(null);
+//Menu.setApplicationMenu(null);
 const menu = Menu.buildFromTemplate([
     { label :"Tools", submenu : [      
-        { label:"Voice1", click() { MenuMethods.Voice1() } },   
+        { label:"Save page to PDF", click() { MenuMethods.SaveToPdf(electronWindow) } },   
         { 
           label:"Get Colors",click() {        
           let colors = JSON.parse(fs.readFileSync('./data.json', 'utf8'));

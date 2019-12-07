@@ -1,34 +1,20 @@
-const  {dialog } = require('electron');
-const voice1 = () => {
-  
-    dialog.showOpenDialog (
-        {  title:"Open File to elaborate",
-        securityScopedBookmarks :true,
-        properties: ['openFile', 'createDirectory'],
-        filters: [                
-        {name: 'Javascript Notation Type', extensions: ['json']},
-        {name: 'All Files', extensions: ['*']}
-        ]
-        }, (filePath,bookmarks ) => {
+const  {dialog ,BrowserWindow} = require('electron');
+const fs = require('fs');
 
-        if(filePath === undefined) return;
-        // Here we can elaborate our file
-        console.log("Logic here");
-        
-        dialog.showSaveDialog( {title:"Save file Vocab",filters:[{name: "Vocab Bixby file", extensions:['vocab.6t']}]},
-        (filename) => {
-            if(filename === undefined) return;
-            writeFile.sync(filename, total);                                
-            //win.loadFile('vocabdone.html');
-            win.webContents.send('vdone',total);
-        });
+const SaveToPdf = (window) => {        
+        dialog.showSaveDialog(BrowserWindow.getFocusedWindow(),
+        {title:"Save Pdf file",filters:[{name: "Adobe Pdf", extensions:['pdf']}]}).then
+        ((filePath,canceled,bookmark) => {
+            if(canceled) return;           
+            window.webContents.printToPDF({
+                pageSize: 'Letter'
+              }).then(data => {
+                fs.writeFile(filePath.filePath, data, (err) => {
+                  if (err) throw err
+                  console.log('PDF success!')
+                })});
+            })
         }
-    ); 
-
-}
-
-
 module.exports = {
-    Voice1: voice1
-   
+    SaveToPdf: SaveToPdf   
 }
