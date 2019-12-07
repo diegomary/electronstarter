@@ -4,7 +4,7 @@ const shell = require('electron').shell;
 const MenuMethods = require('./appmenumethods');
 
 const setwindowMenu = (electronWindow) => {
-//Menu.setApplicationMenu(null);
+Menu.setApplicationMenu(null);
 const menu = Menu.buildFromTemplate([
     { label :"Tools", submenu : [      
         { label:"Save page to PDF", click() { MenuMethods.SaveToPdf(electronWindow) } },   

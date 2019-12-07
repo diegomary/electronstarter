@@ -19,7 +19,7 @@ const createMainWindow = () => {
       webPreferences: { nodeIntegration: true}  
      });
     
-    if(process.platform=='darwin') Menu.setApplicationMenu(setwindowMenu(mainWindow));
+    if(process.platform ==='darwin') Menu.setApplicationMenu(setwindowMenu(mainWindow));
     else mainWindow.setMenu(setwindowMenu(mainWindow));     
     mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../../build/index.html')}`);
     mainWindow.title="Example of Electron by Diego"; 
